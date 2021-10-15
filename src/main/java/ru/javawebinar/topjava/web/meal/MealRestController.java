@@ -3,10 +3,10 @@ package ru.javawebinar.topjava.web.meal;
 import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.to.MealTo;
+import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.util.List;
-
-import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Controller
 public class MealRestController {
@@ -28,8 +28,8 @@ public class MealRestController {
         return service.get(id, userId);
     }
 
-    public List<Meal> getAll(Integer userId) {
-        return service.getAll(userId);
+    public List<MealTo> getAll(Integer userId) {
+        return MealsUtil.getTos(service.getAll(userId), MealsUtil.DEFAULT_CALORIES_PER_DAY);
     }
 
     public void update(Meal meal, Integer userId) {

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
-import ru.javawebinar.topjava.util.ValidationUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.SecurityUtil;
 
@@ -15,7 +14,6 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 @Repository
@@ -52,10 +50,9 @@ public class InMemoryMealRepository implements MealRepository {
     @Override
     public Meal get(int id, Integer userId) {
         Meal meal = repository.get(id);
-        if (meal.getUserId().equals(userId)){
+        if (meal.getUserId().equals(userId)) {
             return meal;
-        }
-        else {
+        } else {
             throw new NotFoundException("Нет ид");
         }
     }
@@ -64,7 +61,7 @@ public class InMemoryMealRepository implements MealRepository {
     public Collection<Meal> getAll(Integer userId) {
 //        repository.values().forEach(System.out::println);
         return repository.values().stream()
-                .filter(meal-> meal.getUserId().equals(userId))
+                .filter(meal -> meal.getUserId().equals(userId))
                 .sorted(Comparator.comparing(Meal::getDate))
                 .collect(Collectors.toList());
     }
