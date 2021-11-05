@@ -55,7 +55,7 @@ public abstract class MealServiceTest {
     };
 
     @Autowired
-    private MealService service;
+    protected MealService service;
 
     @Autowired
     private CacheManager cacheManager;
