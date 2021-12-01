@@ -45,12 +45,14 @@ public class MealRestController extends AbstractMealController {
 
     @Override
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Meal create(@RequestBody Meal meal) {
         return super.create(meal);
     }
 
     @Override
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody Meal meal, @PathVariable int id) {
         super.update(meal, id);
     }

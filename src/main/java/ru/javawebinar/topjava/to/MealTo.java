@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 public class MealTo {
     private final Integer id;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private final LocalDateTime dateTime;
 
     private final String description;
 
     private final int calories;
 
+    @JsonIgnore
     private final boolean excess;
 
     public MealTo(Integer id, LocalDateTime dateTime, String description, int calories, boolean excess) {
