@@ -7,20 +7,6 @@
 
     <bean class="ru.javawebinar.topjava.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
-    <bean class="ru.javawebinar.topjava.web.json.LocalDateConverter" id="converters">
-        <constructor-arg value="yyyy-MM-dd"/>
-    </bean>
-
-<!--    <mvc:annotation-driven conversion-service="conversionService"/>-->
-<!--    <mvc:annotation-driven>-->
-<!--        <mvc:message-converters>-->
-<!--            <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
-<!--                <property name="converters" ref="converters"/>-->
-<!--            </bean>-->
-<!--        </mvc:message-converters>-->
-<!--    </mvc:annotation-driven>-->
-
-
         <mvc:annotation-driven conversion-service="conversionService">
             <mvc:message-converters>
                 <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -39,7 +25,16 @@
 
     <bean id="conversionService"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters" ref="converters"/>
+        <property name="converters">
+        <set>
+            <bean class="ru.javawebinar.topjava.web.json.LocalDateConverter">
+                <constructor-arg value="yyyy-MM-dd"/>
+            </bean>
+            <bean class="ru.javawebinar.topjava.web.json.LocalTimeConverter">
+                <constructor-arg value="HH:mm:ss"/>
+            </bean>
+        </set>
+    </property>
     </bean>
 
     <context:component-scan base-package="ru.javawebinar.**.web"/>
